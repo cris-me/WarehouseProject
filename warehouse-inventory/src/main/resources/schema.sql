@@ -5,21 +5,21 @@ drop table if exists warehouse_inventory;
 
 CREATE TABLE warehouses(
 	id INT AUTO_INCREMENT PRIMARY KEY,
-	name VARCHAR(50) NOT NULL,
+	warehouse_name VARCHAR(50) NOT NULL,
 	capacity INT NOT NULL,
 	current_inventory INT DEFAULT 0
 );
 
 CREATE TABLE items(
 	id INT AUTO_INCREMENT PRIMARY KEY,
-	name VARCHAR(50) UNIQUE NOT NULL
+	item_name VARCHAR(50) UNIQUE NOT NULL
 );
 
 CREATE TABLE warehouse_inventory(
 	id INT AUTO_INCREMENT PRIMARY KEY,
-	Warehouse_Id INT NOT NULL,
-	Item_Id INT NOT NULL,
-	Quantity INT DEFAULT 0,
-	FOREIGN KEY(Warehouse_Id) REFERENCES warehouses(id) ON DELETE CASCADE,
-	FOREIGN KEY(Item_Id) REFERENCES items(id) ON DELETE CASCADE
+	warehouse_id INT NOT NULL,
+	item_id INT NOT NULL,
+	quantity INT DEFAULT 0,
+	FOREIGN KEY(warehouse_id) REFERENCES warehouses(id) ON DELETE CASCADE,
+	FOREIGN KEY(item_id) REFERENCES items(id) ON DELETE CASCADE
 );

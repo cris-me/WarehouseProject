@@ -17,7 +17,7 @@ public class Warehouse {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "warehouse_name")
     private String warehouseName;
 
     @Column
@@ -27,6 +27,9 @@ public class Warehouse {
     @Column(name = "current_inventory")
     @Min(0)
     private int currentInventory;
+
+    public Warehouse(){
+    }
 
     // Adding a warehouse will always just have name + capacity.
     public Warehouse(String name, int capacity) {

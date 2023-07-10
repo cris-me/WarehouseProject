@@ -10,23 +10,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skillstorm.warehouseinventory.models.Warehouse;
-import com.skillstorm.warehouseinventory.services.WarehouseService;
+import com.skillstorm.warehouseinventory.models.Item;
+import com.skillstorm.warehouseinventory.services.ItemService;
 
 @RestController
-@RequestMapping("/warehouses")
+@RequestMapping("/items")
 @CrossOrigin
-public class WarehouseController {
-    
+public class ItemController {
+
     @Autowired
-    WarehouseService warehouseService;
+    ItemService itemService;
 
     @GetMapping
-    public ResponseEntity<List<Warehouse>> findAllWarehouses(){
-        List<Warehouse> warehouses = warehouseService.findAllWarehouses();
+    public ResponseEntity<List<Item>> findAllItems(){
+        List<Item> items = itemService.findAllItems();
 
-        return new ResponseEntity<List<Warehouse>>(warehouses, HttpStatus.OK);
+        return new ResponseEntity<List<Item>>(items, HttpStatus.OK);
     }
 
-    
 }
