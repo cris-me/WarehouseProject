@@ -20,11 +20,18 @@ public interface WarehouseRepository extends JpaRepository<Warehouse, Integer>{
     @Query("update Warehouse w set w.warehouseName = :new_name where id = :warehouse_id")
     @Modifying
     @Transactional
-    public int updateWarehouseName(@Param("warehouse_id") int id, @Param("new_name") String newWarehouseName);
+    public int updateWarehouse(@Param("warehouse_id") int id, @Param("new_name") String newWarehouseName);
 
     //updating the capacity of a warehouse
     @Query("update Warehouse w set w.capacity = :new_capacity where id = :warehouse_id")
     @Modifying
     @Transactional
-    public int updateWarehouseCapacity(@Param("warehouse_id") int id, @Param("new_capacity") int newWarehouseCapacity);
+    public int updateWarehouse(@Param("warehouse_id") int id, @Param("new_capacity") int newWarehouseCapacity);
+
+    //updating the name and capacity of a warehouse
+
+    @Query("update Warehouse w set w.warehouseName = :new_name, w.capacity = :new_capacity where id = :warehouse_id")
+    @Modifying
+    @Transactional
+    public int updateWarehouse(@Param("warehouse_id") int id, @Param("new_name") String newWarehouseName, @Param("new_capacity") int newWarehouseCapacity);
 }
