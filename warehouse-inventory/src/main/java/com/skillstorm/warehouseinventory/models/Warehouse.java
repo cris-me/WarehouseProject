@@ -17,8 +17,8 @@ public class Warehouse {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column
-    private String name;
+    @Column(name = "name")
+    private String warehouseName;
 
     @Column
     @Min(0)
@@ -30,7 +30,7 @@ public class Warehouse {
 
     // Adding a warehouse will always just have name + capacity.
     public Warehouse(String name, int capacity) {
-        this.name = name;
+        this.warehouseName = name;
         this.capacity = capacity;
     }
 
@@ -43,11 +43,11 @@ public class Warehouse {
     }
 
     public String getName() {
-        return name;
+        return warehouseName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.warehouseName = name;
     }
 
     public int getCapacity() {
@@ -71,7 +71,7 @@ public class Warehouse {
         final int prime = 31;
         int result = 1;
         result = prime * result + id;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((warehouseName == null) ? 0 : warehouseName.hashCode());
         result = prime * result + capacity;
         result = prime * result + currentInventory;
         return result;
@@ -88,10 +88,10 @@ public class Warehouse {
         Warehouse other = (Warehouse) obj;
         if (id != other.id)
             return false;
-        if (name == null) {
-            if (other.name != null)
+        if (warehouseName == null) {
+            if (other.warehouseName != null)
                 return false;
-        } else if (!name.equals(other.name))
+        } else if (!warehouseName.equals(other.warehouseName))
             return false;
         if (capacity != other.capacity)
             return false;
@@ -102,7 +102,7 @@ public class Warehouse {
 
     @Override
     public String toString() {
-        return "Warehouse [id=" + id + ", name=" + name + ", capacity=" + capacity + ", currentInventory="
+        return "Warehouse [id=" + id + ", warehouseName=" + warehouseName + ", capacity=" + capacity + ", currentInventory="
                 + currentInventory + "]";
     }
 
