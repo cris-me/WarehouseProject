@@ -5,7 +5,7 @@ drop table if exists warehouse_inventory;
 
 CREATE TABLE warehouses(
 	id INT AUTO_INCREMENT PRIMARY KEY,
-	warehouse_name VARCHAR(50) NOT NULL,
+	warehouse_name VARCHAR(50) UNIQUE NOT NULL,
 	capacity INT NOT NULL,
 	current_inventory INT DEFAULT 0
 );
