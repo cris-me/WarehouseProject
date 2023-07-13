@@ -7,8 +7,8 @@ CREATE TABLE warehouses(
 
 CREATE TABLE items(
 	id SERIAL PRIMARY KEY,
-	name TEXT NOT NULL
-)
+	name TEXT UNIQUE NOT NULL
+);
 
 CREATE TABLE warehouse_inventory(
 	id SERIAL PRIMARY KEY,
@@ -17,27 +17,32 @@ CREATE TABLE warehouse_inventory(
 	Quantity INT DEFAULT 0,
 	FOREIGN KEY(Warehouse_Id) REFERENCES warehouses(id) ON DELETE CASCADE,
 	FOREIGN KEY(Item_Id) REFERENCES items(id) ON DELETE CASCADE
-)
+);
 
 
 SELECT * FROM warehouses
 SELECT * FROM items
 SELECT * FROM warehouse_inventory
 
-INSERT INTO warehouses(name,capacity)
-VALUES('West Coast Branch', 200);
+INSERT INTO warehouses(id, name,capacity)
+VALUES(3, 'Arizona', 96);
 
-INSERT INTO items(name)
-VALUES('Baseball Bat');
+INSERT INTO items(id, name)
+VALUES(20, 'Soccer Goal');
 
 INSERT INTO warehouse_inventory(warehouse_id,item_id,quantity)
 VALUES(1,4,22)
 
 DELETE FROM warehouses
-WHERE "id" = 4;
+WHERE "id" = 3;
 
 DELETE FROM items
-WHERE "id" = 3;
+WHERE "id" = 20;
+
+DELETE FROM warehouse_inventory
+WHERE "id" = 20;
+
+DROP TABLE warehouse_inventory
 
 
 
