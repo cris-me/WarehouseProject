@@ -25,8 +25,18 @@ public interface WarehouseItemRepository extends JpaRepository<WarehouseItem, In
     @Transactional
     public int updateWarehouseItemQuantity(@Param("inventory_id") int id, @Param("new_quantity") int newQuantity);
 
-    //@Query(value = "SELECT * FROM games ORDER BY random() LIMIT :count", nativeQuery = true)
+    //Grab an entry with warehouse_id AND item_id
     @Query(value = "SELECT * FROM warehouse_inventory WHERE warehouse_id = :warehouse_id AND item_id = :item_id", nativeQuery = true)
     public Optional<WarehouseItem> findByWarehouseAndItem(@Param("warehouse_id") int warehouseId, @Param("item_id") int itemId);
+
+
+    //  @Query(value = "INSERT INTO items (item_name) VALUES (':item_name')", nativeQuery = true)
+    //  public void createItemByName(@Param("item_name") String itemName);
+
+    //Create an entry
+    @Transactional
+    @Modifying
+    @Query(value = "INSERT INTO warehouse_inventory (warehouse_id, item_id, quantity) VALUES (:warehouse_id, :item_id, :quantity)", nativeQuery = true)
+    public void createNewEntry(@Param("warehouse_id") int warehouseId, @Param("item_id") int itemId, @Param("quantity") int quantity);
     
 }

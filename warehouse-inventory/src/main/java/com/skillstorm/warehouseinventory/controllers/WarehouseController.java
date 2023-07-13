@@ -54,26 +54,36 @@ public class WarehouseController {
 
     // delete a warehouse
     @DeleteMapping("/warehouse")
+    public ResponseEntity<Warehouse> deleteWarehouse(@RequestBody Warehouse warehouse){
+        warehouseService.deleteWarehouse(warehouse);
+        return ResponseEntity.noContent().build();
+    }
+
+    // delete a warehouse by id
+    @DeleteMapping("/warehouse/id")
     public ResponseEntity<Warehouse> deleteWarehouseById(@RequestParam int warehouseId){
         Warehouse warehouse = warehouseService.findWarehouseById(warehouseId);
         warehouseService.deleteWarehouse(warehouse);
         return ResponseEntity.noContent().build();
     }
 
-
-    //update the information of a warehouse
+    //update the name of a warehouse
     @PutMapping("/warehouse/updateName")
     public ResponseEntity<Integer> updateWarehouse(@RequestParam int warehouseId, @RequestParam String newName){
         Warehouse warehouse = warehouseService.findWarehouseById(warehouseId);
         int updated = warehouseService.updateWarehouse(warehouse, newName);
         return new ResponseEntity<Integer>(updated, HttpStatus.OK);
     } 
+
+    // update the capacity
     @PutMapping("/warehouse/updateCapacity")
     public ResponseEntity<Integer> updateWarehouse(@RequestParam int warehouseId, @RequestParam int newCapacity){
         Warehouse warehouse = warehouseService.findWarehouseById(warehouseId);
         int updated = warehouseService.updateWarehouse(warehouse, newCapacity);
         return new ResponseEntity<Integer>(updated, HttpStatus.OK);
     }
+
+    // update the name and capacity of a warehouse
     @PutMapping("/warehouse/updateNameAndCapacity")
     public ResponseEntity<Integer> updateWarehouse(@RequestParam int warehouseId, @RequestParam String newName, @RequestParam int newCapacity){
         Warehouse warehouse = warehouseService.findWarehouseById(warehouseId);
@@ -81,6 +91,7 @@ public class WarehouseController {
         return new ResponseEntity<Integer>(updated, HttpStatus.OK);
     }
 
+    
     // A single update function
     // @PutMapping("/warehouse/updateWarehouse")
     // public ResponseEntity<Integer> updateWarehouse(@RequestParam int warehouseId, @RequestParam(required = false) String newName, @RequestParam(required = false) int newCapacity){

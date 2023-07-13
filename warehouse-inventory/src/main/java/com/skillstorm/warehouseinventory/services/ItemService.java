@@ -41,12 +41,28 @@ public class ItemService {
         }
     }
 
-    //TODO: To return a single item by name 
+    //To return a single item by name 
+    public Item findByItemName(String itemName){
+         Optional<Item> item = itemRepository.findByItem_Name(itemName);
+
+         if(item.isPresent()){
+            return item.get();
+        }
+        else{
+            return null;
+        }
+    }
 
     // To create an item, using JPA save
     public Item createItem(Item item){
         return itemRepository.save(item);
     }
+
+    //  To create an item by passing in the name
+    public void createItemByName(String itemName){
+         itemRepository.createItemByName(itemName);
+    }
+
 
     //To delete an item, just using JPA delete
     public void deleteItem(Item item){

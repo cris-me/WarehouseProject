@@ -41,6 +41,14 @@ public class ItemController {
         return new ResponseEntity<Item>(item, HttpStatus.OK);
     }
 
+    //find an item by name
+    @GetMapping("/item/name")
+    public ResponseEntity<Item> findItemByName(@RequestParam String itemName){
+        Item item = itemService.findByItemName(itemName);
+
+        return new ResponseEntity<Item>(item, HttpStatus.OK);
+    }
+
     // create an item
     @PostMapping("/item")
     public ResponseEntity<Item> createItem(@RequestBody Item item){
@@ -49,12 +57,27 @@ public class ItemController {
         return new  ResponseEntity<Item>(newItem, HttpStatus.CREATED);
     }
 
+    // create an item by name param
+    @PostMapping("/item/name")
+    public ResponseEntity<Item> createItemByName(@RequestParam String itemName){
+        itemService.createItemByName(itemName);
+        Item newItem = itemService.findByItemName(itemName);
+
+        return new  ResponseEntity<Item>(newItem, HttpStatus.CREATED);
+    }
+
     // delete an item
     @DeleteMapping("/item")
+    public ResponseEntity<Item> deleteItem(@RequestBody Item item){
+        itemService.deleteItem(item);
+        return ResponseEntity.noContent().build();
+    }
+
+    // delete an item by id
+    @DeleteMapping("/item/id")
     public ResponseEntity<Item> deleteItemById(@RequestParam int itemId){
         Item item = itemService.findItemById(itemId);
         itemService.deleteItem(item);
         return ResponseEntity.noContent().build();
     }
-
 }
