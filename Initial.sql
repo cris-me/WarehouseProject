@@ -1,22 +1,22 @@
 CREATE TABLE warehouses(
 	id SERIAL PRIMARY KEY,
-	name VARCHAR(50) NOT NULL,
+	warehouse_name VARCHAR(50) UNIQUE NOT NULL,
 	capacity INT NOT NULL,
 	current_inventory INT DEFAULT 0
 );
 
 CREATE TABLE items(
 	id SERIAL PRIMARY KEY,
-	name TEXT UNIQUE NOT NULL
+	item_name TEXT UNIQUE NOT NULL
 );
 
 CREATE TABLE warehouse_inventory(
 	id SERIAL PRIMARY KEY,
-	Warehouse_Id INT NOT NULL,
-	Item_Id INT NOT NULL,
-	Quantity INT DEFAULT 0,
-	FOREIGN KEY(Warehouse_Id) REFERENCES warehouses(id) ON DELETE CASCADE,
-	FOREIGN KEY(Item_Id) REFERENCES items(id) ON DELETE CASCADE
+	warehouse_id INT NOT NULL,
+	item_id INT NOT NULL,
+	quantity INT DEFAULT 1,
+	FOREIGN KEY(warehouse_id) REFERENCES warehouses(id) ON DELETE CASCADE,
+	FOREIGN KEY(item_id) REFERENCES items(id) ON DELETE CASCADE
 );
 
 
@@ -42,7 +42,7 @@ WHERE "id" = 20;
 DELETE FROM warehouse_inventory
 WHERE "id" = 20;
 
-DROP TABLE warehouse_inventory
-
-
+DROP TABLE warehouses;
+DROP TABLE items;
+DROP TABLE warehouse_inventory;
 

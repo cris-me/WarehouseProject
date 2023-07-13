@@ -64,7 +64,7 @@ public class WarehouseItemController {
     }
 
     // Update the quantity of an entry
-    @PutMapping("/warehouseItem/updateQuantity")
+    @PutMapping("/warehouseItem/updateQuantity/body")
     public ResponseEntity<Integer> updateWarehouseItemQuantityBody(@RequestBody WarehouseItem warehouseItem,
             @RequestParam int newQuantity) {
         int updated = warehouseItemService.updateWarehouseItemQuantity(warehouseItem, newQuantity);
@@ -81,7 +81,7 @@ public class WarehouseItemController {
     }
 
     // Delete an entry
-    @DeleteMapping("/warehouseItem")
+    @DeleteMapping("/warehouseItem/body")
     public ResponseEntity<WarehouseItem> deleteWarehouseItemBody(@RequestBody WarehouseItem warehouseItem) {
         warehouseItemService.deleteEntryBody(warehouseItem);
         return ResponseEntity.noContent().build();
