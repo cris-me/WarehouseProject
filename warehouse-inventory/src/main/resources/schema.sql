@@ -1,6 +1,6 @@
 /* If the users table already exists, drop it so it can be remade */
-drop table if exists warehouses;
-drop table if exists items;
+drop table if exists warehouses CASCADE;
+drop table if exists items CASCADE;
 drop table if exists warehouse_inventory;
 
 CREATE TABLE warehouses(
@@ -19,7 +19,7 @@ CREATE TABLE warehouse_inventory(
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	warehouse_id INT NOT NULL,
 	item_id INT NOT NULL,
-	quantity INT DEFAULT 0,
+	quantity INT DEFAULT 1,
 	FOREIGN KEY(warehouse_id) REFERENCES warehouses(id) ON DELETE CASCADE,
 	FOREIGN KEY(item_id) REFERENCES items(id) ON DELETE CASCADE
 );

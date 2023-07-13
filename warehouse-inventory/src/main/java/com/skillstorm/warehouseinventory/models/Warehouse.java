@@ -1,12 +1,17 @@
 package com.skillstorm.warehouseinventory.models;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "warehouses")
@@ -28,7 +33,11 @@ public class Warehouse {
     @Min(0)
     private int currentInventory;
 
-    public Warehouse(){
+    @JsonBackReference
+    @OneToMany(targetEntity = WarehouseItem.class, mappedBy = "warehouse")
+    private Set<WarehouseItem> warehouseItem;
+
+    public Warehouse() {
     }
 
     // Adding a warehouse will always just have name + capacity.
@@ -45,12 +54,12 @@ public class Warehouse {
         this.id = id;
     }
 
-    public String getName() {
+    public String getWarehouseName() {
         return warehouseName;
     }
 
-    public void setName(String name) {
-        this.warehouseName = name;
+    public void setWarehouseName(String warehouseName) {
+        this.warehouseName = warehouseName;
     }
 
     public int getCapacity() {
@@ -69,6 +78,14 @@ public class Warehouse {
         this.currentInventory = currentInventory;
     }
 
+    public Set<WarehouseItem> getWarehouseItem() {
+        return warehouseItem;
+    }
+
+    public void setWarehouseItem(Set<WarehouseItem> warehouseItem) {
+        this.warehouseItem = warehouseItem;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -77,6 +94,7 @@ public class Warehouse {
         result = prime * result + ((warehouseName == null) ? 0 : warehouseName.hashCode());
         result = prime * result + capacity;
         result = prime * result + currentInventory;
+        result = prime * result + ((warehouseItem == null) ? 0 : warehouseItem.hashCode());
         return result;
     }
 
@@ -100,13 +118,18 @@ public class Warehouse {
             return false;
         if (currentInventory != other.currentInventory)
             return false;
+        if (warehouseItem == null) {
+            if (other.warehouseItem != null)
+                return false;
+        } else if (!warehouseItem.equals(other.warehouseItem))
+            return false;
         return true;
     }
 
     @Override
     public String toString() {
-        return "Warehouse [id=" + id + ", warehouseName=" + warehouseName + ", capacity=" + capacity + ", currentInventory="
-                + currentInventory + "]";
+        return "Warehouse [id=" + id + ", warehouseName=" + warehouseName + ", capacity=" + capacity
+                + ", currentInventory=" + currentInventory + ", warehouseItem=" + warehouseItem + "]";
     }
 
 }

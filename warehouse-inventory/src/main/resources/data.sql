@@ -24,8 +24,8 @@ insert into items (item_name) values ('Stone');
 
 /* Inserting 10 rows for warehouse inventory. Will comment out for now because reallistically this data will be created by an admin */
 insert into warehouse_inventory (warehouse_id, item_id, quantity) values (3, 4, 19);
-/*insert into warehouse_inventory (warehouse_id, item_id, quantity) values (7, 5, 14);
+insert into warehouse_inventory (warehouse_id, item_id, quantity) values (7, 5, 14);
 insert into warehouse_inventory (warehouse_id, item_id, quantity) values (9, 7, 11);
 insert into warehouse_inventory (warehouse_id, item_id, quantity) values (6, 2, 18);
 insert into warehouse_inventory (warehouse_id, item_id, quantity) values (8, 6, 14);
-insert into warehouse_inventory (warehouse_id, item_id, quantity) values (4, 8, 17); */
+insert into warehouse_inventory (warehouse_id, item_id, quantity) values (4, 8, 17); 
