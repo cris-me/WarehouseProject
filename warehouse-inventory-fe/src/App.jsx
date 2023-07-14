@@ -18,14 +18,14 @@ export default function App() {
     return (
         <>
             <Header extended={true}>
-                <BrowserRouter basename='/home'>
+                <BrowserRouter basename='/'>
                     <Grid row>
                         <Title>Universal Database Management System</Title>
                         <PrimaryNav items={navItems}></PrimaryNav>
                     </Grid>
                     <Routes>
                         <Route path='/warehouses' element={<Warehouses />} />
-                        <Route path='/home' element={<Home />} />
+                        <Route path='/' element={<Home />} />
                         <Route path='/warehouseItems' element={<WarehouseItems />} />
                     </Routes>
                 </BrowserRouter>

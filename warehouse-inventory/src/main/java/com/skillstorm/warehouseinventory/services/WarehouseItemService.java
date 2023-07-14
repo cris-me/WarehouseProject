@@ -110,7 +110,11 @@ public class WarehouseItemService {
     public void deleteEntryBody(WarehouseItem warehouseItem) {
         // Item item = itemService.findByItemName(itemName);
         // WarehouseItem warehouseItem = findEntry(warehouseId, item.getId());
-        warehouseItem.getWarehouse().setCurrentInventory(warehouseItem.getWarehouse().getCurrentInventory()-warehouseItem.getQuantity());
+        // Subtract the quantity being deleted from the warehouse
+        Warehouse warehouse = warehouseItem.getWarehouse();
+        int subtract = warehouseItem.getQuantity();
+        int newQuantity = warehouse.getCurrentInventory() - subtract;
+        warehouseService.updateWarehouseInventory(warehouse, newQuantity);
         warehouseItemRepository.delete(warehouseItem);
     }
 
