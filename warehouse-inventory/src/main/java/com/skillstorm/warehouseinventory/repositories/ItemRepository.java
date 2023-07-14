@@ -15,14 +15,14 @@ import com.skillstorm.warehouseinventory.models.Item;
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Integer> {
 
-    //@Query(value = "SELECT * FROM warehouse_inventory WHERE warehouse_id = :warehouse_id AND item_id = :item_id", nativeQuery = true)
-    //public Optional<WarehouseItem> findByWarehouseAndItem(@Param("warehouse_id") int warehouseId, @Param("item_id") int itemId);
+
+    // custom query for item creation
     @Transactional
     @Modifying
     @Query(value = "INSERT INTO items (item_name) VALUES (:name)", nativeQuery = true)
     public void createItemByName(@Param("name") String itemName);
-//    public Optional<List<WarehouseItem>> findByItem_Id(int id);
 
+    // custom query for finding an item by name
     @Query(value = "SELECT * FROM items WHERE item_name =:item_name", nativeQuery = true)
     public Optional<Item> findByItem_Name(@Param("item_name") String itemName);
 }

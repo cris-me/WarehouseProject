@@ -29,10 +29,6 @@ public interface WarehouseItemRepository extends JpaRepository<WarehouseItem, In
     @Query(value = "SELECT * FROM warehouse_inventory WHERE warehouse_id = :warehouse_id AND item_id = :item_id", nativeQuery = true)
     public Optional<WarehouseItem> findByWarehouseAndItem(@Param("warehouse_id") int warehouseId, @Param("item_id") int itemId);
 
-
-    //  @Query(value = "INSERT INTO items (item_name) VALUES (':item_name')", nativeQuery = true)
-    //  public void createItemByName(@Param("item_name") String itemName);
-
     //Create an entry
     @Transactional
     @Modifying

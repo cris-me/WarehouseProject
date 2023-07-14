@@ -15,6 +15,7 @@ export default function WarehouseForm({ handleNewWarehouse }) {
             capacity : data.get('warehouseCapacity')
         }
 
+        // passing through body for creation
         fetch(url + '/warehouse', {
             method: 'POST',
             headers: {

@@ -63,6 +63,7 @@ export default function WarehouseTable({ tableData }) {
         setOpen(false);
     }
 
+    // attach newly created entry
     function handleWarehouseUpdate(newEntry){
         setWarehouses((oldState) => {
             return [...oldState, newEntry];

@@ -2,6 +2,9 @@ import { Grid } from "@trussworks/react-uswds";
 
 export default function home(){
 
+    {/**
+        Simple Home Page
+    */}
 
     return (
         <>

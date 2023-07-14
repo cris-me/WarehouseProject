@@ -10,6 +10,7 @@ export default function WarehouseItems(){
 
     const [warehouseItems, setWarehouseItems] = useState([]);
 
+    // Grab tabledata for all inventories
     useEffect(() => {
         fetch(url)
             .then(data => data.json())

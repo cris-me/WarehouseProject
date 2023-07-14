@@ -90,22 +90,4 @@ public class WarehouseController {
         int updated = warehouseService.updateWarehouse(warehouse, newName, newCapacity);
         return new ResponseEntity<Integer>(updated, HttpStatus.OK);
     }
-
-    
-    // A single update function
-    // @PutMapping("/warehouse/updateWarehouse")
-    // public ResponseEntity<Integer> updateWarehouse(@RequestParam int warehouseId, @RequestParam(required = false) String newName, @RequestParam(required = false) int newCapacity){
-    //     int updated;
-    //     Warehouse warehouse = warehouseService.findWarehouseById(warehouseId);
-    //     if(!newName.equals(warehouse.getName()) && newCapacity != warehouse.getCapacity()){
-    //         updated = warehouseService.updateWarehouse(warehouse, newName, newCapacity);
-    //     }
-    //     else if (newCapacity != warehouse.getCapacity()){
-    //         updated = warehouseService.updateWarehouse(warehouse, newCapacity);
-    //     }
-    //     else{
-    //         updated = warehouseService.updateWarehouse(warehouse, newName);
-    //     }
-    //     return new ResponseEntity<Integer>(updated, HttpStatus.OK);
-    // }
 }

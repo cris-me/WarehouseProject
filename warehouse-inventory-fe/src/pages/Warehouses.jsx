@@ -11,6 +11,7 @@ export default function Warehouses(){
 
     const ModalRef = useRef(null);
 
+    // Grab table data for warehouses
     useEffect(() => {
         fetch(url)
             .then(data => data.json())
