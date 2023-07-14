@@ -55,4 +55,8 @@ public class WarehouseService {
     public int updateWarehouse(Warehouse warehouse, String newName, int newCapacity){
         return warehouseRepository.updateWarehouse(warehouse.getId(), newName, newCapacity);
     }
+
+    public void updateWarehouseInventory(Warehouse warehouse, int newInventory){
+        warehouseRepository.updateWarehouseCurrentInventory(warehouse.getId(), newInventory);
+    }
 }
