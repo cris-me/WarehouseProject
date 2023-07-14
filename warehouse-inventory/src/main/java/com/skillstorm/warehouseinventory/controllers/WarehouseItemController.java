@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import com.skillstorm.warehouseinventory.services.WarehouseItemService;
 
 @RestController
 @RequestMapping("/warehouseItems")
+@CrossOrigin("*")
 public class WarehouseItemController {
 
     @Autowired
@@ -47,24 +49,34 @@ public class WarehouseItemController {
 
     // Create an entry
     @PostMapping("/warehouseItem/body")
-    public ResponseEntity<WarehouseItem> createWarehouseItemBody(@RequestBody WarehouseItem warehouseItem) {
-        WarehouseItem newWarehouseItem = warehouseItemService.createWarehouseItemBody(warehouseItem);
-
-        return new ResponseEntity<WarehouseItem>(newWarehouseItem, HttpStatus.CREATED);
+    public ResponseEntity<Integer> createWarehouseItemBody(@RequestBody WarehouseItem warehouseItem) {
+        Integer response = warehouseItemService.createWarehouseItemBody(warehouseItem);
+        if(response.intValue() == 1)
+        {
+            return new ResponseEntity<Integer>(1, HttpStatus.CREATED);
+        }
+        else{
+            return new ResponseEntity<Integer>(0, HttpStatus.BAD_REQUEST);
+        }
     }
 
     // Create an entry by passing in the params
     @PostMapping("/warehouseItem")
-    public ResponseEntity<WarehouseItem> createWarehouseItem(@RequestParam int warehouseId,
+    public ResponseEntity<Integer> createWarehouseItem(@RequestParam int warehouseId,
             @RequestParam String itemName, @RequestParam int quantity) {
 
-        WarehouseItem newWarehouseItem = warehouseItemService.createWarehouseItem(warehouseId, itemName, quantity);
+        Integer response = warehouseItemService.createWarehouseItem(warehouseId, itemName, quantity);
 
-        return new ResponseEntity<WarehouseItem>(newWarehouseItem, HttpStatus.CREATED);
+        if(response.intValue() == 1){
+            return new ResponseEntity<Integer>(response, HttpStatus.CREATED);
+        }
+        else{
+            return new ResponseEntity<Integer>(0, HttpStatus.BAD_REQUEST);
+        }
     }
 
     // Update the quantity of an entry
-    @PutMapping("/warehouseItem/updateQuantity")
+    @PutMapping("/warehouseItem/updateQuantity/body")
     public ResponseEntity<Integer> updateWarehouseItemQuantityBody(@RequestBody WarehouseItem warehouseItem,
             @RequestParam int newQuantity) {
         int updated = warehouseItemService.updateWarehouseItemQuantity(warehouseItem, newQuantity);
@@ -81,7 +93,7 @@ public class WarehouseItemController {
     }
 
     // Delete an entry
-    @DeleteMapping("/warehouseItem")
+    @DeleteMapping("/warehouseItem/body")
     public ResponseEntity<WarehouseItem> deleteWarehouseItemBody(@RequestBody WarehouseItem warehouseItem) {
         warehouseItemService.deleteEntryBody(warehouseItem);
         return ResponseEntity.noContent().build();
