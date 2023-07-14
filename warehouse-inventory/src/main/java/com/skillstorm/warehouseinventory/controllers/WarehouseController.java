@@ -21,7 +21,7 @@ import com.skillstorm.warehouseinventory.services.WarehouseService;
 
 @RestController
 @RequestMapping("/warehouses")
-@CrossOrigin
+@CrossOrigin("*")
 public class WarehouseController {
     
     @Autowired
@@ -84,7 +84,7 @@ public class WarehouseController {
     }
 
     // update the name and capacity of a warehouse
-    @PutMapping("/warehouse/updateNameAndCapacity")
+    @PutMapping("/warehouse/update")
     public ResponseEntity<Integer> updateWarehouse(@RequestParam int warehouseId, @RequestParam String newName, @RequestParam int newCapacity){
         Warehouse warehouse = warehouseService.findWarehouseById(warehouseId);
         int updated = warehouseService.updateWarehouse(warehouse, newName, newCapacity);

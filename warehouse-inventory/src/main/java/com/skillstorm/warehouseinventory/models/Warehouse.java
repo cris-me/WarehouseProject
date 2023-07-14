@@ -46,6 +46,18 @@ public class Warehouse {
         this.capacity = capacity;
     }
 
+    public int updateInventory(int change){
+        if(this.currentInventory + change > this.capacity)
+        {
+            return 0;
+        }
+        else{
+            this.currentInventory += change;
+            return 1;
+        }
+        
+    }
+
     public int getId() {
         return id;
     }

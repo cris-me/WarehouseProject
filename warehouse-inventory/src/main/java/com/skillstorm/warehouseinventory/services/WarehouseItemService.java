@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skillstorm.warehouseinventory.models.Item;
+import com.skillstorm.warehouseinventory.models.Warehouse;
 import com.skillstorm.warehouseinventory.models.WarehouseItem;
 
 import com.skillstorm.warehouseinventory.repositories.WarehouseItemRepository;
@@ -62,27 +63,42 @@ public class WarehouseItemService {
     }
 
     // Create an entry
-    public WarehouseItem createWarehouseItemBody(WarehouseItem warehouseItem) {
+    public int createWarehouseItemBody(WarehouseItem warehouseItem) {
         // Need to store Item into item table
         Item itemWithId = itemService.createItem(warehouseItem.getItem());
         warehouseItem.setItem(itemWithId);
 
-        return warehouseItemRepository.save(warehouseItem);
+        //update quantity of warehouse
+        if(warehouseItem.getWarehouse().updateInventory(warehouseItem.getQuantity()) == 1){
+            warehouseItemRepository.save(warehouseItem);
+            //will use to denote success in saving
+            return 1;
+        }
+        else{
+            //will use to denote error in saving
+            return 0;
+        }
     }
 
     // Create an entry by passing it some params
-    public WarehouseItem createWarehouseItem(int warehouseId, String itemName, int quantity) {
-        // Need to store Item into item table
-        itemService.createItemByName(itemName);
-        // Grab the item just added to table
-        Item itemWithId = itemService.findByItemName(itemName);
+    public int createWarehouseItem(int warehouseId, String itemName, int quantity) {
 
-        // create entry
-        warehouseItemRepository.createNewEntry(warehouseId, itemWithId.getId(), quantity);
-        // Grab entry just created
-        WarehouseItem warehouseItem = findEntry(warehouseId, itemWithId.getId());
+        // check if warehouse has space
+        Warehouse warehouse = warehouseService.findWarehouseById(warehouseId);
 
-        return warehouseItemRepository.save(warehouseItem);
+        if (warehouse.updateInventory(quantity) == 1) {
+
+            // Need to store Item into item table
+            itemService.createItemByName(itemName);
+            // Grab the item just added to table
+            Item itemWithId = itemService.findByItemName(itemName);
+
+            // create entry
+            warehouseItemRepository.createNewEntry(warehouseId, itemWithId.getId(), quantity);
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     // Update the quantity of an entry
@@ -94,6 +110,7 @@ public class WarehouseItemService {
     public void deleteEntryBody(WarehouseItem warehouseItem) {
         // Item item = itemService.findByItemName(itemName);
         // WarehouseItem warehouseItem = findEntry(warehouseId, item.getId());
+        warehouseItem.getWarehouse().setCurrentInventory(warehouseItem.getWarehouse().getCurrentInventory()-warehouseItem.getQuantity());
         warehouseItemRepository.delete(warehouseItem);
     }
 
